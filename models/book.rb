@@ -10,4 +10,19 @@ class Book
     @isbn      = data[:isbn]
     @asin      = data[:asin]
   end
+
+  def self.search(q, options=Hash.new)
+    results = {:books=>Array.new }
+    res = Amazon::Ecs.item_search(q, :country=>"jp")
+    raise res.error if res.has_error?
+
+    res.items.each do |item|
+      results[:books] << self.new(
+	:title => item.get('ItemAttributes/Title'),
+	:author => item.get('ItemAttributes/Author')
+      )
+    end
+
+    results
+  end
 end

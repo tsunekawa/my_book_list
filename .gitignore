@@ -11,6 +11,9 @@ spec/reports
 test/tmp
 test/version_tmp
 tmp
+config/application.yml
+*.swp
+*.swo
 
 # YARD artifacts
 .yardoc

@@ -40,6 +40,12 @@ end
 # Add your after (RE)load hooks here
 #
 Padrino.after_load do
+  Config = YAML.load_file(File.join(File.dirname(__FILE__),"application.yml"))
+  Amazon::Ecs.options = {
+    :associate_tag => Config[:amazon][:associate_tag],
+    :AWS_access_key_id => Config[:amazon][:AWS_access_key_id],       
+    :AWS_secret_key => Config[:amazon][:AWS_secret_key]
+  }
 end
 
 Padrino.load!
