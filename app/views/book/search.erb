@@ -8,10 +8,16 @@
 <div class="book-search-result">
   <% @results.each do |book| %>
     <div class="book">
-      <h2><%= book.title %></h2>
+      <h2><%= link_to book.title, book.url %></h2>
+      <% if book.medium_image.present? %>
+      <div class="image">
+        <%= book_image_for book %>
+      </div>
+      <% end %>
       <ul>
-	<li><%= book.author %></li>
-	<li><%= book.publisher %></li>
+	<li>著者: <%= book.author %></li>
+	<li>出版社: <%= book.publisher %></li>
+	<li>ISBN: <%= book.isbn %></li>
       </ul>
     </div>
   <% end %>
