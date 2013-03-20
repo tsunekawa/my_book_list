@@ -1,1 +1,19 @@
 <h1>本の検索</h1>
+<% form_tag('/book/search', :method=>'GET') do %>
+  <%= label_tag :keyword %>
+  <%= text_field_tag :q %>
+  <%= submit_tag '検索' %>
+<% end %>
+<% if @results.present? %>
+<div class="book-search-result">
+  <% @results.each do |book| %>
+    <div class="book">
+      <h2><%= book.title %></h2>
+      <ul>
+	<li><%= book.author %></li>
+	<li><%= book.publisher %></li>
+      </ul>
+    </div>
+  <% end %>
+</div>
+<% end %>

@@ -20,6 +20,13 @@ MyBookList.controllers :book do
 
   get :search, :map => "/book/search" do
     @title = "本の検索"
+    @results = Array.new
+
+    if params[:q].present? then
+      @results << Book.new(:title=>"first", :author=>"first author", :publisher=>"first press")
+      @results << Book.new(:title=>"second", :author=>"second author", :publisher=>"second press")
+    end
+
     render 'book/search'
   end  
 end
