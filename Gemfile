@@ -21,3 +21,4 @@ gem 'rack-test', :require => "rack/test", :group => "test"
 gem 'padrino', '0.10.7'
 
 gem 'amazon-ecs'
+gem 'pry'

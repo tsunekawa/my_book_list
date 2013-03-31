@@ -1,43 +1,48 @@
 #!/usr/bin/env ruby
 # -*- coding: utf-8 -*-
-class Book
-  attr_accessor :title, :author, :publisher, :isbn, :asin, :small_image, :medium_image, :url
-
-  def initialize(data)
-    @title     = data[:title]
-    @author    = data[:author]
-    @publisher = data[:publisher]
-    @isbn      = data[:isbn]
-    @asin      = data[:asin]
-    @small_image      = data[:small_image]
-    @medium_image     = data[:medium_image]
-    @url       = data[:url]
-  end
+class Book < AmazonItem
+  attr_accessor :title, :author, :publisher, :isbn, :small_image, :medium_image, :url
 
   def self.search(q, options=Hash.new)
-    results = {:books=>Array.new }
-    res = ::Amazon::Ecs.item_search(q, :country=>"jp", :response_group=>"Medium")
+    page = options[:page] || 1
+    res = ::Amazon::Ecs.item_search(q, :country=>"jp", :response_group=>"Medium", :item_page=>page)
     raise res.error if res.has_error?
 
-    res.items.each do |item|
-      small_image = item.get_hash('SmallImage')
-      small_image = Hash[ small_image.map {|k,v| [k.downcase.to_sym, v] } ] if small_image.present?
-
-      medium_image = item.get_hash('MediumImage')
-      medium_image = Hash[ medium_image.map {|k,v| [k.downcase.to_sym, v] } ] if medium_image.present?
-
-      results[:books] << self.new(
-	:title => item.get('ItemAttributes/Title'),
-	:author => item.get('ItemAttributes/Author'),
-	:publisher => item.get('ItemAttributes/Manufacturer'),
-	:isbn => item.get('ItemAttributes/EAN'),
-	:small_image => small_image,
-	:medium_image => medium_image,
-	:url => item.get('DetailPageURL')
-      )
+    res.items.map do |item|
+      self.new(:asin=>item.get('ASIN'))
     end
+  end
 
-    results
+  def small_image
+    if @small_image.blank? then
+       _small_image = get_hash('SmallImage')
+       @small_image = Hash[ _small_image.map {|k,v| [k.downcase.to_sym, v] } ] if _small_image.present?
+    end
+    @small_image
+  end
+
+  def medium_image
+    if @medium_image.blank? then
+      _medium_image = get_hash('MediumImage')
+      @medium_image = Hash[ _medium_image.map {|k,v| [k.downcase.to_sym, v] } ] if _medium_image.present?
+    end
+    @medium_image
+  end
+
+  def title
+    @title ||= get('ItemAttributes/Title')
+  end
+
+  def author
+    @author ||= get('ItemAttributes/Author')
+  end
+  
+  def publisher
+    @publisher ||= get('ItemAttributes/Manufacturer')
+  end
+
+  def isbn
+    @isbn ||= get('ItemAttributes/EAN')
   end
 
 end
