@@ -1,0 +1,31 @@
+<div class="container">
+  <h1>登録した本</h1>
+</div>
+
+<div class="container">
+  <% @books.each do |book| %>
+    <div class="book row well">
+      <% if book.medium_image.present? %>
+      <div class="image span2">
+        <%= book_image_for book %>
+      </div>
+      <% end %>
+      <div class="span7">
+	<h2 class="book-title"><%= link_to book.title, book.url %></h2>
+	<ul class="book-description">
+	  <li>著者: <%= book.author %></li>
+	  <li>出版社: <%= book.publisher %></li>
+	  <li>ISBN: <%= book.isbn %></li>
+	</ul>
+
+	<div class="book-control-panel">
+	  <% form_tag("/book/#{book.asin}/delete", :method=>'POST', :class=>'book-deleter-form') do %>
+	    <p class="alert">既に登録済みです。</p>
+	    <%= submit_tag '登録解除', :class=>"btn btn-danger" %>
+	  <% end %>
+        </div>
+
+      </div>
+    </div>
+  <% end %>
+</div>
