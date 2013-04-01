@@ -5,9 +5,8 @@
     <title><%= @title %></title>
     <meta name="keywords" content="">
     <meta name="description" content="">
-    <link rel="stylesheet" href="/stylesheets/bootstrap.css" media="all">
-    <script src="/javascripts/jquery.js"></script>
-    <script src="/javascripts/bootstrap.js"></script>
+    <%= stylesheet_link_tag asset_path(:css, 'application.css') %>
+    <%= javascript_include_tag asset_path(:js, 'application.js') %>
   </head>
   <body>
     <%= yield %>

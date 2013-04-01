@@ -3,6 +3,8 @@ class MyBookList < Padrino::Application
   register Padrino::Rendering
   register Padrino::Mailer
   register Padrino::Helpers
+  register Padrino::Sprockets
+  sprockets # :url => 'assets', :root => app.root
 
   enable :sessions
 
