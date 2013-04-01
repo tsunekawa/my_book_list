@@ -41,4 +41,16 @@ MyBookList.controllers :book do
     end
   end
 
+  post :delete, :map => "/book/:asin/delete" do
+    book = Book.find_by_asin params[:asin]
+    if book.present? then
+      book.destroy
+      status 200
+      "success!"
+    else
+      status 400
+      "asin:#{params[:asin]} は不正であるか登録されていません。"
+    end
+  end
+
 end

@@ -24,10 +24,17 @@
 	  <li>ISBN: <%= book.isbn %></li>
 	</ul>
 
-	<% form_tag('/book', :method=>'POST') do %>
-	  <%= hidden_field_tag :asin, :value=>book.asin %>
-	  <%= submit_tag '登録', :class=>"btn" %>
-	<% end %>
+	<% if Book.find_by_asin(book.asin).blank? then %>
+	  <% form_tag('/book', :method=>'POST') do %>
+	    <%= hidden_field_tag :asin, :value=>book.asin %>
+	    <%= submit_tag '登録', :class=>"btn btn-primary" %>
+	  <% end %>
+        <% else %>
+	  <p>既に登録済みです。</p>
+	  <% form_tag("/book/#{book.asin}/delete", :method=>'POST') do %>
+	    <%= submit_tag '登録解除', :class=>"btn btn-danger" %>
+	  <% end %>
+        <% end %>
       </div>
     </div>
   <% end %>
