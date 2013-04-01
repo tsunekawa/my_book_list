@@ -23,8 +23,8 @@ MyBookList.controllers :book do
     @results = Array.new
 
     if params[:q].present? then
-      results = Book.search(params[:q])
-      @results = results[:books] if results.present?
+      results = Book.search(params[:q], :page=>params[:page])
+      @results = results if results.present?
     end
 
     render 'book/search'
