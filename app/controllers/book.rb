@@ -29,4 +29,16 @@ MyBookList.controllers :book do
 
     render 'book/search'
   end  
+
+  post :index, :map => "/book" do
+    book = Book.new(:asin=> params[:asin])
+    book.save
+    if book.errors.present? then
+      halt 400, book.error
+    else
+      status 200
+      "success!"
+    end
+  end
+
 end
