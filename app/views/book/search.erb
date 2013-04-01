@@ -1,24 +1,29 @@
-<h1>本の検索</h1>
-<% form_tag('/book/search', :method=>'GET') do %>
-  <%= label_tag :keyword %>
-  <%= text_field_tag :q %>
-  <%= submit_tag '検索' %>
-<% end %>
+<div class="container">
+  <h1>本の検索</h1>
+  <% form_tag('/book/search', :method=>'GET', :class=>'well') do %>
+    <%= label_tag :keyword %>
+    <%= text_field_tag :q %>
+    <%= submit_tag '検索', :class=>"btn" %>
+  <% end %>
+</div>
+
 <% if @results.present? %>
-<div class="book-search-result">
+<div class="book-search-result container">
   <% @results.each do |book| %>
-    <div class="book">
-      <h2><%= link_to book.title, book.url %></h2>
+    <div class="book row well">
       <% if book.medium_image.present? %>
-      <div class="image">
+      <div class="image span2">
         <%= book_image_for book %>
       </div>
       <% end %>
-      <ul>
-	<li>著者: <%= book.author %></li>
-	<li>出版社: <%= book.publisher %></li>
-	<li>ISBN: <%= book.isbn %></li>
-      </ul>
+      <div class="span7">
+	<h2 class="book-title"><%= link_to book.title, book.url %></h2>
+	<ul class="book-description">
+	  <li>著者: <%= book.author %></li>
+	  <li>出版社: <%= book.publisher %></li>
+	  <li>ISBN: <%= book.isbn %></li>
+	</ul>
+      </div>
     </div>
   <% end %>
 </div>

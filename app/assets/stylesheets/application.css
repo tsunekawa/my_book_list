@@ -2,3 +2,16 @@
  *= require_self
  *= require_tree .
 */
+
+.book-title
+{
+  margin:0;
+  padding:0;
+  line-height: 130%;
+  font-size:130%;
+}
+
+.book-description
+{
+  margin-top:1em;
+}
