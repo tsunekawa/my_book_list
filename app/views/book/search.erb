@@ -23,6 +23,11 @@
 	  <li>出版社: <%= book.publisher %></li>
 	  <li>ISBN: <%= book.isbn %></li>
 	</ul>
+
+	<% form_tag('/book', :method=>'POST') do %>
+	  <%= hidden_field_tag :asin, :value=>book.asin %>
+	  <%= submit_tag '登録', :class=>"btn" %>
+	<% end %>
       </div>
     </div>
   <% end %>
