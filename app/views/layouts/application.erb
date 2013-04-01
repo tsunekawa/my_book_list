@@ -5,6 +5,8 @@
     <title><%= @title %></title>
     <meta name="keywords" content="">
     <meta name="description" content="">
+    <%= stylesheet_link_tag asset_path(:css, 'application.css') %>
+    <%= javascript_include_tag asset_path(:js, 'application.js') %>
   </head>
   <body>
     <%= yield %>

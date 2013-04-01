@@ -20,6 +20,12 @@ gem 'rack-test', :require => "rack/test", :group => "test"
 # Padrino Stable Gem
 gem 'padrino', '0.10.7'
 
+# Assets Pipeline
+gem 'padrino-sprockets', :require => "padrino/sprockets"
+
+# Amazon API
 gem 'amazon-ecs'
 gem 'dalli'
+
+# debug
 gem 'pry'
