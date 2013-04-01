@@ -1,4 +1,6 @@
 class AmazonItem < ActiveRecord::Base
+  CACHE_SERVERS = 'localhost:11211'
+  @@cache = Dalli::Client.new(CACHE_SERVERS, :expires_in => 3600 * 24)
   validates_presence_of :asin
 
   def get(path)
@@ -21,12 +23,14 @@ class AmazonItem < ActiveRecord::Base
   private
 
   def lookup
-    begin
-      @item   = Amazon::Ecs.item_lookup(asin, :country=>:jp, :response_group=>"Medium").first_item
-    rescue => ex
-      logger.error ex
+    if @item = @@cache.get(asin)
+      @item  = Amazon::Element.new Nokogiri::XML(@item, nil, 'UTF-8').elements
+    elsif @item = Amazon::Ecs.item_lookup(asin, :country=>:jp, :response_group=>"Medium").first_item
+      @@cache.set(asin, @item.to_s)
     end
 
     @looked = true
+  rescue => ex
+    logger.error ex
   end
 end
