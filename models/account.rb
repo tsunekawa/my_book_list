@@ -15,6 +15,10 @@ class Account < ActiveRecord::Base
   # Callbacks
   before_save :encrypt_password, :if => :password_required
 
+  has_many :having_books
+  has_many :amazon_items, :through=>:having_books
+  has_many :books, :through=>:having_books, :foreign_key=>:amazon_item_id
+
   ##
   # This method is for authentication purpose
   #

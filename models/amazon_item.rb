@@ -3,6 +3,9 @@ class AmazonItem < ActiveRecord::Base
   @@cache = Dalli::Client.new(CACHE_SERVERS, :expires_in => 3600 * 24)
   validates_presence_of :asin
 
+  has_many :having_books
+  has_many :accounts, :through=>:having_books
+
   def get(path)
     lookup unless @looked
     @item.get(path)
