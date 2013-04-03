@@ -1,4 +1,4 @@
-MyBookList.controllers :book do
+MyBookList.controllers :book, :parent=>:account do
   # get :index, :map => "/foo/bar" do
   #   session[:foo] = "bar"
   #   render 'index'
@@ -30,14 +30,14 @@ MyBookList.controllers :book do
     render 'book/search'
   end  
 
-  get :index, :map => "/book" do
-    @books = Book.all
+  get :index do
+    @account = Account.find(params[:account_id])
+    @books = @account.books
     render 'book/index'
   end
 
-  post :index, :provides => :json,  :map => "/book" do
-    book = Book.new(:asin=> params[:asin])
-    book.save
+  post :index, :provides => :json do
+    book = current_account.books.create :asin=> params[:asin]
     if book.errors.present? then
       res = {:status=>"error", :message=>"asin:#{params[:asin]} は不正なASINです。"}
     else
@@ -52,10 +52,10 @@ MyBookList.controllers :book do
     end
   end
 
-  post :delete, :provides => :json, :map => "/book/:asin/delete" do
+  delete :index, :provides => :json do
     book = Book.find_by_asin params[:asin]
     if book.present? then
-      book.destroy
+      current_account.books.delete book
       res = {:status=>"success", :message=>"削除完了!"}
     else
       status 400

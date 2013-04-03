@@ -1,4 +1,4 @@
 <% @accounts.each do |ac| %>
-  <%= link_to ac.name, "/account/#{ac.id}/books" %>
+  <%= link_to ac.name, url_for(:account, :show, :account_id=>ac.id) %>
 <% end %>
 

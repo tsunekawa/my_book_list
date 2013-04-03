@@ -23,9 +23,9 @@ MyBookList.controllers :account do
     render 'account/index'
   end
 
-  get :books, :map => "/account/:user_id/books" do
-    @account = Account.find(params[:user_id])
-    render 'account/books'
+  get :show, :map => "/account/:account_id" do
+    @account = Account.find(params[:account_id])
+    redirect url_for(:book, :index, :account_id=>@account.id)
   end
-  
+
 end
