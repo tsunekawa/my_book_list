@@ -1,0 +1,4 @@
+<% @accounts.each do |ac| %>
+  <%= link_to ac.name, "/account/#{ac.id}/books" %>
+<% end %>
+
