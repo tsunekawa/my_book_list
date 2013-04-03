@@ -6,6 +6,10 @@ class MyBookList < Padrino::Application
   register Padrino::Sprockets
   sprockets # :url => 'assets', :root => app.root
 
+  register Padrino::Admin::AccessControl
+  enable :authentication
+  enable :store_location
+  set :login_page, "/sessions/new" 
   enable :sessions
 
   ##

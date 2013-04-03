@@ -1,0 +1,55 @@
+<%- content_for :title do -%>
+  <%= 'ログイン' %>
+<%- end -%>
+
+<%- content_for :assets do -%>
+  <%= stylesheet_link_tag "themes/default/style" %>
+<%- end -%>
+
+  <div id="container">
+    <div id="box">
+      <h1>ログイン</h1>
+      <div class="block" id="block-login">
+        <h2>Login Box</h2>
+        <div class="content login">
+          <div class="flash">
+            <%= [:error, :warning, :notice].map { |type| flash_tag(type, :class => "message #{type}") }.join %>
+          </div>
+          <% form_tag(url(:sessions, :create), :class => 'form login') do %>
+            <div class="group wat-cf">
+              <div class="left">
+                <label class="label right">Login</label>
+              </div>
+              <div class="right">
+                <%= text_field_tag :email, :value => params[:email], :class => 'text_field' %>
+              </div>
+            </div>
+            <div class="group wat-cf">
+              <div class="left">
+                <label class="label right">Password</label>
+              </div>
+              <div class="right">
+                <%= password_field_tag :password, :value => params[:password], :class => 'text_field' %>
+              </div>
+            </div>
+            <% if Padrino.env == :development %>
+              <div class="group wat-cf">
+                <div class="left">
+                  <label class="label right">Bypass login?</label>
+                </div>
+                <div class="right">
+                  <%= check_box_tag :bypass %>
+                </div>
+              </div>
+            <% end %>
+            <div class="group navform wat-cf">
+              <div class="right">
+                <%= submit_tag "Sign in", :class => :button %>
+              </div>
+            </div>
+          <% end %>
+        </div>
+      </div>
+    </div>
+  </div>
+

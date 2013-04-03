@@ -6,8 +6,18 @@
 	<ul class="nav">
 	  <li><%= link_to 'トップ', '/' %></li>
 	  <li><%= link_to '本の検索', '/book/search' -%></li>
-	  <li><%= link_to '登録した本', '/book' -%></li>
-        </ul>
+	  <li><%= link_to '登録した本', url_for(:account,:books,:user_id=>current_account.id) -%></li>
+	</ul>
+	<% if logged_in? %>
+	  <% form_tag '/sessions/destroy', :method=> 'delete', :class=>'nav' do %>
+	    <span><%= current_account.name %></span>
+	    <%= submit_tag 'ログアウト', :class=>'btn btn-danger' %>
+	  <% end %>
+	<% else %>
+	  <% form_tag '/sessions/new', :method=> 'get', :class=>'nav' do %>
+	    <%= submit_tag 'ログイン', :class=>'btn btn-primary' %>
+	  <% end %>
+	<% end %>
       </div><!--/.nav-collapse -->
     </div><!--/.container -->
   </div><!--/.navbar-inner -->
