@@ -2,11 +2,14 @@
 <html lang="ja">
   <head>
     <meta charset="utf-8">
-    <title><%= @title %></title>
+    <title>
+      <%= yield_content :title %>
+    </title>
     <meta name="keywords" content="">
     <meta name="description" content="">
     <%= stylesheet_link_tag asset_path(:css, 'application.css') %>
     <%= javascript_include_tag asset_path(:js, 'application.js') %>
+    <%= yield_content :assets %>
   </head>
   <body>
     <%= partial 'layouts/header' %>
