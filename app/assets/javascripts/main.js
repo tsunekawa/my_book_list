@@ -9,7 +9,7 @@ $(function (){
       event.preventDefault();
       var form = $(event.target);
 
-      $.post('/book', $(this).serialize(), function (event){
+      $.post(form.attr('action'), $(this).serialize(), function (event){
 	if (event.status=="success") {
 	  form.find('.alert').text(event.message).addClass('alert-success');
 	}else{
