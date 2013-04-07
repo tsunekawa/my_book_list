@@ -15,7 +15,7 @@ tmp
 config/application.yml
 *.swp
 *.swo
-
+.ruby-version
 # YARD artifacts
 .yardoc
 _yardoc

@@ -5,6 +5,11 @@ MyBookList.helpers do
   #  ...
   # end
   def book_image_for(book)
+    begin
     "<img src='#{book.medium_image[:url]}' width='#{book.medium_image[:width]}' height='#{book.medium_image[:height]}' />"
+    rescue => ex
+    logger.error ex
+    "<img alt='image not found' width='#{book.medium_image[:width]}' height='#{book.medium_image[:height]}' />"
+    end
   end
 end

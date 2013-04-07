@@ -7,12 +7,12 @@ class AmazonItem < ActiveRecord::Base
   has_many :accounts, :through=>:having_books
 
   def get(path)
-    lookup unless @looked
+    lookup unless @looked and @item.present?
     @item.get(path)
   end
 
   def get_hash(path)
-    lookup unless @looked
+    lookup unless @looked and @item.present?
     @item.get_hash(path)
   end
 
@@ -32,8 +32,10 @@ class AmazonItem < ActiveRecord::Base
       @@cache.set(asin, @item.to_s)
     end
 
+    if @item.nil? then
+      raise IOError,"ItemLookup is fault : ASIN #{@item.asin}"
+    end
+
     @looked = true
-  rescue => ex
-    logger.error ex
   end
 end
