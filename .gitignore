@@ -20,3 +20,4 @@ config/application.yml
 .yardoc
 _yardoc
 doc/
+db/*.yml
