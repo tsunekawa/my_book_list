@@ -4,6 +4,11 @@
   <span class="description">Ex: a simple text</span>
 </div>
 <div class="group">
+  <%= f.label :slag %><%= f.error_message_on :slag %>
+  <%= f.text_field :slag, :class => :text_field %>
+  <span class="description">Ex: a simple text</span>
+</div>
+<div class="group">
   <%= f.label :content %><%= f.error_message_on :content %>
   <%= f.text_area :content, :class => :text_area %>
   <span class="description">Ex: a simple text</span>

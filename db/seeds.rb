@@ -26,3 +26,7 @@ else
 end
 
 shell.say ""
+
+pages_yml = YAML.load_file(File.join(FILE.dirname(__FILE__),"pages.yml"))
+pages     = pages_yml.map{|data| Page.find(:slag=>data[:slag]).present? ? Page.create(data) : nil }.compact
+shell.say "create #{pages.count} pages"
