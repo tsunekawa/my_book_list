@@ -12,6 +12,20 @@ class MyBookList < Padrino::Application
   set :login_page, "/sessions/new" 
   enable :sessions
 
+  access_control.roles_for :any do |role|
+    role.protect "/"
+    role.allow "/sessions"
+  end
+
+  access_control.roles_for :admin do |role|
+    role.project_module :admin, "/admin"
+    role.project_module :account, "/account"
+  end
+
+  access_control.roles_for :user do |role|
+    role.project_module :account, "/account"
+  end
+
   ##
   # Caching support
   #
@@ -55,9 +69,14 @@ class MyBookList < Padrino::Application
   ##
   # You can manage errors like:
   #
-  #   error 404 do
-  #     render 'errors/404'
-  #   end
+  error 403 do
+    render 'errors/403'
+  end
+
+  error 404 do
+    render 'errors/404'
+  end
+
   #
   #   error 505 do
   #     render 'errors/505'

@@ -34,8 +34,12 @@ MyBookList.controllers :book, :parent=>:account do
 
   get :index do
     @account = Account.find(params[:account_id])
-    @books = @account.books
-    render 'book/index'
+    if permit_access? then
+      @books = @account.books
+      render 'book/index'
+    else
+      halt 403
+    end
   end
 
   post :index, :provides => :json do

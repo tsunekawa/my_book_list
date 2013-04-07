@@ -12,4 +12,8 @@ MyBookList.helpers do
     "<img alt='image not found' width='#{book.medium_image[:width]}' height='#{book.medium_image[:height]}' />"
     end
   end
+
+  def permit_access?
+    logged_in? and (current_account.role.to_sym == :admin or current_account.id == @account.id)
+  end
 end
