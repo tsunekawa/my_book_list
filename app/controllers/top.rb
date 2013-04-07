@@ -19,7 +19,8 @@ MyBookList.controllers :top do
   # end
 
   get :top, :map => '/', :provides => [:html] do
-    render 'top/index', :locals=>{:page=>Page.where(:slag=>"top").first}
+    page = Page.where(:slag=>"top").first
+    render 'pages/show', :locals=>{:page=>page}
   end
   
 end

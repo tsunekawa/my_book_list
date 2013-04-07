@@ -32,3 +32,11 @@
 {
   margin-top:1em;
 }
+
+.page-content h2
+{
+  border-left:black 5px solid;
+  border-bottom:black 1px solid;
+  margin-top: 0.5em;
+  margin-bottom: 0.5em;
+}
