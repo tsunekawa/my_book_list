@@ -3,7 +3,8 @@
  *= require_tree .
 */
 
-.book-index
+.book-index,
+.index-box
 {
   font-size:600%;
   text-align:center;

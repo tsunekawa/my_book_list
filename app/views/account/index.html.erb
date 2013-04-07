@@ -1,4 +1,22 @@
-<% @accounts.each do |ac| %>
-  <%= link_to ac.name, url_for(:account, :show, :account_id=>ac.id) %>
+<% content_for :title do %>
+  アカウント一覧
 <% end %>
+
+<div class="container">
+  <h1>アカウント一覧</h1>
+</div>
+
+<div class="container">
+<% @accounts.each_with_index do |ac,i| %>
+  <div class="well row">
+    <div class="span1 muted index-box">
+      <%= i+1 %>
+    </div>
+    <div class="span9">
+      <h2><%= link_to ac.name, url_for(:account, :show, :account_id=>ac.id) %></h2>
+      <p>登録冊数:<%= ac.books.size %>冊</p>
+    </div>
+  </div>
+<% end %>
+</div>
 
