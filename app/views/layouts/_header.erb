@@ -8,11 +8,16 @@
 	  <li><%= link_to '本の検索', url_for(:book,:search) -%></li>
 	  <% if logged_in? then %>
 	    <li><%= link_to '登録した本', url_for(:book, :index, :account_id=>current_account.id) -%></li>
+	    <% if current_account.is_admin? then %>
+	      <li><%= link_to '管理', "/admin" -%></li>
+	    <% end %>
 	  <% end %>
 	</ul>
 	<% if logged_in? %>
 	  <% form_tag '/sessions/destroy', :method=> 'delete', :class=>'nav' do %>
-	    <span><%= current_account.name %></span>
+	    <p class="account-menu-name">
+	      <span class="text-info"><%= current_account.name %></span>としてログインしています。
+	    </p>
 	    <%= submit_tag 'ログアウト', :class=>'btn btn-danger' %>
 	  <% end %>
 	<% else %>

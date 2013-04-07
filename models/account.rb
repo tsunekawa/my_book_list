@@ -31,6 +31,10 @@ class Account < ActiveRecord::Base
     ::BCrypt::Password.new(crypted_password) == password
   end
 
+  def is_admin?
+    role.to_sym == :admin
+  end
+
   private
   def encrypt_password
     self.crypted_password = ::BCrypt::Password.create(password)

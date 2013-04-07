@@ -3,6 +3,14 @@
  *= require_tree .
 */
 
+.account-menu-name
+{
+  display:inline;
+  font-size:120%;
+  margin:0.5em;
+  color:white;
+}
+
 .book-index,
 .index-box
 {
