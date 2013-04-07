@@ -1,0 +1,5 @@
+<div class="book-list">
+<% books.each_with_index do |book, i| %>
+  <%= partial 'layouts/book', :locals=>{:book=>book, :index=>i+1} %>
+<% end %>
+</div>

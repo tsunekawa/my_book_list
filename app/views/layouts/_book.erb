@@ -1,16 +1,19 @@
-    <div class="book row well">
-      <% if book.medium_image.present? %>
-      <div class="image span2">
-        <%= book_image_for book %>
-      </div>
-      <% end %>
-      <div class="span7">
-	<h2 class="book-title"><%= link_to book.title, book.url %></h2>
-	<ul class="book-description">
-	  <li>著者: <%= book.author %></li>
-	  <li>出版社: <%= book.publisher %></li>
-	  <li>ISBN: <%= book.isbn %></li>
-	</ul>
+<div class="book row well">
+  <div class="book-index span1 muted">
+    <%= index if defined? index %>
+  </div>
+  <div class="image span2">
+  <% if book.medium_image.present? %>
+     <%= book_image_for book %>
+  <% end %>
+  </div>
+  <div class="span7">
+    <h2 class="book-title"><%= link_to book.title, book.url %></h2>
+    <ul class="book-description">
+      <li>著者: <%= book.author %></li>
+      <li>出版社: <%= book.publisher %></li>
+      <li>ISBN: <%= book.isbn %></li>
+    </ul>
 
 	<% if logged_in? then %>
 	<div class="book-control-panel">
@@ -31,4 +34,4 @@
         <% end %>
 
       </div>
-    </div>
+</div>

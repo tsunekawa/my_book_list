@@ -9,8 +9,6 @@
 
 <% if @results.present? %>
 <div class="book-search-result container">
-  <% @results.each do |book| %>
-    <%= partial 'layouts/book', :locals=>{:book=>book} %>
-  <% end %>
+  <%= partial 'layouts/book_list', :locals=>{:books=>@results} %>
 </div>
 <% end %>

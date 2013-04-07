@@ -3,7 +3,5 @@
 </div>
 
 <div class="container">
-  <% @books.each do |book| %>
-  <%= partial 'layouts/book', :locals=>{:book=>book} %>
-  <% end %>
+  <%= partial 'layouts/book_list', :locals=>{:books=>@books} %>
 </div>
