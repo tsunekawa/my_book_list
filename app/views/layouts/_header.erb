@@ -8,6 +8,7 @@
 	  <li><%= link_to '本の検索', url_for(:book,:search) -%></li>
 	  <% if logged_in? then %>
 	    <li><%= link_to '登録した本', url_for(:book, :index, :account_id=>current_account.id) -%></li>
+	    <li><%= link_to 'ユーザー設定', url_for(:account, :setting, :account_id=>current_account.id) -%></li>
 	    <% if current_account.is_admin? then %>
 	      <li><%= link_to '管理', Admin.url_for(:base, :index) -%></li>
 	    <% end %>

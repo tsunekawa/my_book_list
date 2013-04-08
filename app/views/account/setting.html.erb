@@ -1,0 +1,14 @@
+<% content_for :title do %>
+ユーザー設定
+<% end %>
+
+<div class="block container">
+  <div class="content well">
+    <h2 class="title"><%= pat(:new) %> <% mt(:account) %></h2>
+    <div class="inner">
+      <% form_for :account, url_for(:account, :update, :account_id => @account.id), :method => :put, :class => :form do |f| %>
+        <%= partial "account/form", :locals => { :f => f } %>
+      <% end %>
+    </div>
+  </div>
+</div>
