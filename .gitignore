@@ -21,3 +21,5 @@ config/application.yml
 _yardoc
 doc/
 db/*.yml
+db/pages/*
+!db/pages/.gitkeep
