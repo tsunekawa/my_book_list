@@ -32,15 +32,21 @@ else
   shell.say "admin account has already been created." 
 end
 
-pages_yml = YAML.load_file(File.join(File.dirname(__FILE__),"pages.yml"))
-pages     = pages_yml.inject(Array.new) do |list,data|
-  if Page.where(:slag=>data[:slag]).first.blank? then
-    list << Page.create(data)
-    shell.say("page:#{data[:title]} was created.")
+reg   = /---\n((?:.|\n)*)\n---/
+pages = Array.new
+Dir.glob(File.join(File.dirname(__FILE__),"pages","*.md")) do |path|
+  str = File.read(path)
+  header = YAML.load(str.scan(reg).first.try(:first))
+  body   = str.gsub(reg,"")
+
+  if Page.where(:slag=>header[:slag]).first.blank? then
+    data = header.dup
+    data[:content] = body
+    pages << Page.create(data)
+    shell.say("page:#{header[:title]} was created.")
   else
-    shell.say("page:#{data[:title]} has been already created.")
+    shell.say("page:#{header[:title]} has been already created.")
   end
-  list
 end
 
 shell.say "create #{pages.count} pages"
