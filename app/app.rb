@@ -6,6 +6,8 @@ class MyBookList < Padrino::Application
   register Padrino::Sprockets
   sprockets # :url => 'assets', :root => app.root
 
+  set :site_name, $config[:site][:name] || "MyBookList"
+
   register Padrino::Admin::AccessControl
   enable :authentication
   enable :store_location
