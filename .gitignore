@@ -21,3 +21,4 @@ config/application.yml
 _yardoc
 doc/
 db/*.yml
+db/pages/*.md
