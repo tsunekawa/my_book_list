@@ -22,3 +22,5 @@ _yardoc
 doc/
 db/*.yml
 db/pages/*.md
+vendor/*
+log/*.log
