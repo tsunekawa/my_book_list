@@ -43,9 +43,11 @@ MyBookList.controllers :book, :parent=>:account do
   end
 
   post :index, :provides => :json do
-    book = current_account.books.create :asin=> params[:asin]
+    book = current_account.books.where(:asin=> params[:asin]).first_or_create
+
     if book.errors.present? then
-      res = {:status=>"error", :message=>"asin:#{params[:asin]} は不正なASINです。"}
+      mes = book.errors.messages.map{|k,v| "#{k}: #{v.join("")}"}.join("\n")
+      res = {:status=>"error", :message=>mes}
     else
       res = {:status=>"success", :message=>"登録完了!"}
     end
