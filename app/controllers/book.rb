@@ -43,12 +43,13 @@ MyBookList.controllers :book, :parent=>:account do
   end
 
   post :index, :provides => :json do
-    book = current_account.books.where(:asin=> params[:asin]).first_or_create
+    book = Book.where(:asin=> params[:asin]).first_or_create
 
     if book.errors.present? then
       mes = book.errors.messages.map{|k,v| "#{k}: #{v.join("")}"}.join("\n")
       res = {:status=>"error", :message=>mes}
     else
+      current_account.books << book
       res = {:status=>"success", :message=>"登録完了!"}
     end
 
