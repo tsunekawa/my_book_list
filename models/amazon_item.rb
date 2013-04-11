@@ -1,7 +1,8 @@
 class AmazonItem < ActiveRecord::Base
   CACHE_SERVERS = 'localhost:11211'
   @@cache = Dalli::Client.new(CACHE_SERVERS, :expires_in => 3600 * 24)
-  validates_presence_of :asin
+  validates_presence_of   :asin
+  validates_uniqueness_of :asin
 
   has_many :having_books
   has_many :accounts, :through=>:having_books
