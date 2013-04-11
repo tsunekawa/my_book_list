@@ -1,0 +1,14 @@
+<div class="container">
+  <h1>本の検索</h1>
+  <% form_tag(url_for(:book, :search), :method=>'GET', :class=>'well') do %>
+    <%= label_tag :keyword %>
+    <%= text_field_tag :q %>
+    <%= submit_tag '検索', :class=>"btn" %>
+  <% end %>
+</div>
+
+<% if @results.present? %>
+<div class="book-search-result container">
+  <%= partial 'layouts/book_list', :locals=>{:books=>@results} %>
+</div>
+<% end %>

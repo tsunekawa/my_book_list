@@ -1,0 +1,32 @@
+<div class="navbar navbar-inverse">
+  <div class="navbar-inner">
+    <div class="container">
+      <%= link_to(settings.site_name, url_for(:top, :top), :class=>'brand') %>
+      <div class="nav-collapse collapse">
+	<ul class="nav">
+	  <li><%= link_to 'トップ', url_for(:top, :top) %></li>
+	  <li><%= link_to '本の検索', url_for(:book,:search) -%></li>
+	  <% if logged_in? then %>
+	    <li><%= link_to '登録した本', url_for(:book, :index, :account_id=>current_account.id) -%></li>
+	    <li><%= link_to 'ユーザー設定', url_for(:account, :setting, :account_id=>current_account.id) -%></li>
+	    <% if current_account.is_admin? then %>
+	      <li><%= link_to '管理', Admin.url_for(:base, :index) -%></li>
+	    <% end %>
+	  <% end %>
+	</ul>
+	<% if logged_in? %>
+	  <% form_tag url_for(:sessions, :destroy), :method=> 'delete', :class=>'nav' do %>
+	    <p class="account-menu-name">
+	      <span class="text-info"><%= current_account.name %></span>としてログインしています。
+	    </p>
+	    <%= submit_tag 'ログアウト', :class=>'btn btn-danger' %>
+	  <% end %>
+	<% else %>
+	  <% form_tag url_for(:sessions, :new), :method=> 'get', :class=>'nav' do %>
+	    <%= submit_tag 'ログイン', :class=>'btn btn-primary' %>
+	  <% end %>
+	<% end %>
+      </div><!--/.nav-collapse -->
+    </div><!--/.container -->
+  </div><!--/.navbar-inner -->
+</div><!--/.navbar -->

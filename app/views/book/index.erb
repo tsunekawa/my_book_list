@@ -1,0 +1,7 @@
+<div class="container">
+  <h1><%= @account.name -%>が登録した本</h1>
+</div>
+
+<div class="container">
+  <%= partial 'layouts/book_list', :locals=>{:books=>@books} %>
+</div>
