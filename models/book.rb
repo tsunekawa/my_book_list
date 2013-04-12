@@ -45,4 +45,8 @@ class Book < AmazonItem
     @isbn ||= get('ItemAttributes/EAN')
   end
 
+  def url
+    @url ||= get('DetailPageURL')
+  end
+
 end
