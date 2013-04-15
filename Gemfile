@@ -28,8 +28,13 @@ gem 'padrino-sprockets', :require => "padrino/sprockets"
 gem 'amazon-ecs'
 gem 'dalli'
 
+<<<<<<< HEAD
 # Cron Job
 gem 'whenever', :require => false
 
+=======
+# NDL Search
+gem 'ndl_search', :git => "https://github.com/tsunekawa/ndl_search", :branch => "develop"
+>>>>>>> ndl_search gem を追加
 # debug
 gem 'pry'
