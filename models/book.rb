@@ -1,7 +1,7 @@
 #!/usr/bin/env ruby
 # -*- coding: utf-8 -*-
 class Book < AmazonItem
-  attr_accessor :title, :author, :publisher, :isbn, :small_image, :medium_image, :url
+  attr_accessor :title, :author, :publisher, :isbn, :small_image, :medium_image, :url,:ndc
 
   def self.search(q, options=Hash.new)
     page = options[:page] || 1
@@ -67,4 +67,13 @@ class Book < AmazonItem
     @url ||= get('DetailPageURL')
   end
 
+  def ndc
+    unless @ndc ||= @@cache.get("#{isbn}:ndc")
+      result = NDLSearch::NDLSearch.new.search(:isbn=>isbn,:cnt=>1)
+      @ndc = result.items.first.try(:ndc)
+      @@cache.set("#{isbn}:ndc", @ndc)
+    end
+
+    @ndc
+  end
 end
