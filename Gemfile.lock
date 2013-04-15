@@ -1,3 +1,12 @@
+GIT
+  remote: https://github.com/tsunekawa/ndl_search
+  revision: eff40e2a6d7ff33dd3739d521cfe3a5ee7bade36
+  branch: develop
+  specs:
+    ndl_search (0.0.0)
+      rb-readline
+      rest-client
+
 GEM
   remote: https://rubygems.org/
   specs:
@@ -78,7 +87,10 @@ GEM
     rack-test (0.6.2)
       rack (>= 1.0)
     rake (10.0.4)
+    rb-readline (0.4.2)
     redcarpet (2.2.2)
+    rest-client (1.6.7)
+      mime-types (>= 1.16)
     rspec (2.13.0)
       rspec-core (~> 2.13.0)
       rspec-expectations (~> 2.13.0)
@@ -126,6 +138,7 @@ DEPENDENCIES
   bcrypt-ruby
   dalli
   erubis (~> 2.7.0)
+  ndl_search!
   padrino (= 0.10.7)
   padrino-sprockets
   pry
