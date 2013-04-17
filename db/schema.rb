@@ -36,6 +36,14 @@ ActiveRecord::Schema.define(:version => 6) do
     t.datetime "updated_at",     :null => false
   end
 
+  create_table "ndl_items", :force => true do |t|
+    t.string   "isbn"
+    t.string   "ndc"
+    t.string   "url"
+    t.datetime "created_at", :null => false
+    t.datetime "updated_at", :null => false
+  end
+
   create_table "pages", :force => true do |t|
     t.string   "title"
     t.text     "content"
