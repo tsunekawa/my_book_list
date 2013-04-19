@@ -19,6 +19,12 @@ class Account < ActiveRecord::Base
   has_many :amazon_items, :through=>:having_books
   has_many :books, :through=>:having_books, :foreign_key=>:amazon_item_id
 
+  has_many :ratings, :as=>:ratable
+
+  def rate(target,score)
+    ratings.create :ratable=>target, :rate=>score.to_i
+  end
+
   ##
   # This method is for authentication purpose
   #
