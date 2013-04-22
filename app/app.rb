@@ -3,8 +3,9 @@ class MyBookList < Padrino::Application
   register Padrino::Rendering
   register Padrino::Mailer
   register Padrino::Helpers
+
   register Padrino::Sprockets
-  sprockets # :url => 'assets', :root => app.root
+  sprockets #:url => 'assets', :root => app.root
 
   set :site_name, $config[:site][:name] || "MyBookList"
 
