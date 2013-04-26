@@ -2,5 +2,5 @@
 //= require ./jquery
 //= require ./jquery-ujs
 //= require ./bootstrap
-//= require ./jRating.jquery
+//= require ./jquery.raty.js
 //= require_tree .

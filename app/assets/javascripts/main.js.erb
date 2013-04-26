@@ -39,12 +39,13 @@ $(function (){
       return false;
     });
 
-    $('.rating').jRating({
-      bigStarsPath: 'jquery/icons/stars.png',
-      rateMax: 5,
-      length:  5,
-      type:  'big',
-      canRateAgain: true
+    $('.rating').raty({
+      cancel: true,
+      starOff: 'assets/raty/star-off.png',
+      starOn: 'assets/raty/star-on.png',
+      cancelOff: 'assets/raty/cancel-off.png',
+      cancelOn: 'assets/raty/cancel-on.png',
+      starHalf: 'assets/raty/star-half.png'
     });
 
 });

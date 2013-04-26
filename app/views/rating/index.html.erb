@@ -6,8 +6,8 @@
   <% when :Account %>
   <%= rating.ratable.name %>
   <% end %>
+  <span class="rating" data-score="<%= rating.rate %>" ></span>
   </h2>
-  <p class="rating" data-id="<%= rating.id %>" data-average="<%= rating.rate %>" data-phpPath="<%= url(:rating, :update, :account_id=>current_account.id) %>"></p>
   </div>
 <% end %>
 </div>
