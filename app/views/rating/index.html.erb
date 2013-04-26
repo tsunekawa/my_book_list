@@ -1,0 +1,13 @@
+<div class="container">
+<% @ratings.each do |rating| %>
+  <div class="well row">
+  <h2>
+  <% case rating.ratable_type.to_sym %>
+  <% when :Account %>
+  <%= rating.ratable.name %>
+  <% end %>
+  </h2>
+  <p class="rating" data-id="<%= rating.id %>" data-average="<%= rating.rate %>" data-phpPath="<%= url(:rating, :update, :account_id=>current_account.id) %>"></p>
+  </div>
+<% end %>
+</div>
