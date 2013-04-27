@@ -1,26 +1,34 @@
 MyBookList.controllers :rating, :parent=>:account do
 
-  get :index, :map => "/rating" do
+  get :index do
+    logger.debug current_account
     @ratings = current_account.ratings
     render 'rating/index'
   end
 
-  post :update, :map => "/rating" do
+  get :index,:with=>[:id], :provides=>[:js] do
+    rating = Rating.where(:id=>params[:id]).first
+    rating.to_json
   end
 
-  # get :sample, :map => "/sample/url", :provides => [:any, :js] do
-  #   case content_type
-  #     when :js then ...
-  #     else ...
-  # end
+  post :index, :provides=>[:js] do
+    rate  = params[:rate].to_i
+    model = get_const params[:ratable_type].to_sym
+    instance = model.where(:id=>params[:ratable_id]).first
+    
+    current_account.ratings.create(
+      :rate   =>rate,
+      :ratable=>instance
+    )
+  end
 
-  # get :foo, :with => :id do
-  #   "Maps to url '/foo/#{params[:id]}'"
-  # end
+  put :index, :with=>[:id], :provides=>[:js] do
+    rating = Rating.where(:id=>params[:id]).first
+    raise if rating.account.id != current_account.id
+    rating.rate = params[:rate].to_i
+    rating.save
 
-  # get "/example" do
-  #   "Hello world!"
-  # end
+    rating.to_json
+  end
 
-  
 end
