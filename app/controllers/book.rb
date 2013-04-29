@@ -34,6 +34,10 @@ MyBookList.controllers :book, :parent=>:account do
 
   get :index do
     @account = Account.find(params[:account_id])
+    if @account.id != current_account.id then
+      @rating = current_account.rating_of @account
+    end
+
     if permit_access? then
       @books = @account.books
       render 'book/index'

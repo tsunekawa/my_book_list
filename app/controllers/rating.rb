@@ -6,29 +6,44 @@ MyBookList.controllers :rating, :parent=>:account do
     render 'rating/index'
   end
 
-  get :index,:with=>[:id], :provides=>[:js] do
+  get :show,:with=>[:id], :provides=>[:js] do
     rating = Rating.where(:id=>params[:id]).first
     rating.to_json
   end
 
-  post :index, :provides=>[:js] do
+  post :create, :provides=>[:js] do
     rate  = params[:rate].to_i
-    model = get_const params[:ratable_type].to_sym
+    model = Module.const_get params[:ratable_type].to_sym
     instance = model.where(:id=>params[:ratable_id]).first
     
-    current_account.ratings.create(
+    rating = current_account.ratings.create(
       :rate   =>rate,
       :ratable=>instance
     )
+
+    if rating.valid? then
+      rating.to_json
+    else
+      halt 400
+      {:message=>"Rating Exists"}.to_json      
+    end
   end
 
-  put :index, :with=>[:id], :provides=>[:js] do
+  post :update, :provides=>[:js] do
     rating = Rating.where(:id=>params[:id]).first
-    raise if rating.account.id != current_account.id
-    rating.rate = params[:rate].to_i
-    rating.save
+    if rating.blank? then
+      halt 400, {:message=>"Rating(id:#{params[:id]}) not found"}
+    elsif rating.account_id != current_account.id
+      halt 403, {:message=>"not permitted"}
+    else
+      rating.rate = params[:rate].to_i
+      rating.save
+      rating.to_json
+    end
+  end
 
-    rating.to_json
+  get :config, :provides=>[:js] do
+    render 'rating/config.js'
   end
 
 end

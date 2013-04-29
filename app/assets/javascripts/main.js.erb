@@ -39,16 +39,4 @@ $(function (){
       return false;
     });
 
-    $('.rating').raty({
-      cancel: true,
-      starOff: '/assets/raty/star-off.png',
-      starOn: '/assets/raty/star-on.png',
-      cancelOff: '/assets/raty/cancel-off.png',
-      cancelOn: '/assets/raty/cancel-on.png',
-      starHalf: '/assets/raty/star-half.png',
-      score: function (){
-        return $(this).attr('data-score');
-      }
-    });
-
 });

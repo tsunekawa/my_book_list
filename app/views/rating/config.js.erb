@@ -1,0 +1,89 @@
+$(function (){
+
+
+$('.rating').raty({
+  cancel: true,
+  starOff: '<%= asset_path(:assets, "raty/star-off.png") %>',
+  starOn: '<%= asset_path(:assets, "raty/star-on.png") %>',
+  cancelOff: '<%= asset_path(:assets, "raty/cancel-off.png") %>',
+  cancelOn: '<%= asset_path(:assets, "raty/cancel-on.png") %>',
+  starHalf: '<%= asset_path(:assets, "raty/star-half.png") %>',
+  score: function (){
+    return $(this).attr('data-score');
+  },
+  click: function (score, evt){
+    var id = $(this).attr('id').replace("rating_","")
+    var param = {};
+    var rating_elem = $(this);
+
+    if (!id){
+      param = {
+        rate: score,
+        ratable_type: $(this).attr('ratable-type'),
+        ratable_id: $(this).attr('ratable-id')
+      }
+
+      $.ajax({
+        type: 'POST',
+        url: '<%= url(:rating, :create, :account_id=>current_account.id) %>',
+        data: param,
+        dataType: 'json',
+        success: function (data, dataType){
+          rating_elem.attr('id',"rating_"+data["id"]);
+          rating_elem
+            .parent
+            .removeClass("alert-info")
+            .removeClass("alert-error")
+            .addClass("alert-success");
+          rating_elem
+            .siblings(".message")
+            .text("登録成功");
+        },
+        error: function (XMLHttpRequest, textStatus, errorThrown){
+          rating_elem
+            .siblings(".alert")
+            .removeClass("alert-info")
+            .removeClass("alert-success")
+            .addClass("alert-error");
+          rating_elem
+            .siblings(".message")
+            .text("エラー:"+textStatus);
+        }
+      });
+    }else {
+      param = {
+        id: id,
+        rate: score,
+      }
+      $.ajax({
+        type: 'POST',
+         url: '<%= url(:rating, :update, :account_id=>current_account.id) %>',
+        data: param,
+        dataType: 'json',
+        success: function (data){
+          rating_elem
+            .parent()
+            .removeClass("alert-info")
+            .removeClass("alert-error")
+            .addClass("alert-success");
+          rating_elem.siblings(".massage").text("登録成功");
+        },
+        error: function (XMLHttpRequest, textStatus, errorThrown){
+          rating_elem
+            .parent()
+            .removeClass("alert-info")
+            .removeClass("alert-success")
+            .addClass("alert-error");
+          rating_elem
+            .siblings(".massage")
+            .text("エラー:"+textStatus);
+        }
+      });
+    }
+
+    return false;
+  }
+});
+
+
+});
