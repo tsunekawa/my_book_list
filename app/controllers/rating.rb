@@ -22,6 +22,7 @@ MyBookList.controllers :rating, :parent=>:account do
     )
 
     if rating.valid? then
+      logger.info "#{current_account.name} create rating for #{rating.ratable.name}"
       rating.to_json
     else
       halt 400
@@ -38,6 +39,7 @@ MyBookList.controllers :rating, :parent=>:account do
     else
       rating.rate = params[:rate].to_i
       rating.save
+      logger.info "#{current_account.name} update rating for #{rating.ratable.name}"
       rating.to_json
     end
   end
