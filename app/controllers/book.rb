@@ -33,6 +33,7 @@ MyBookList.controllers :book, :parent=>:account do
       res = {:status=>"error", :message=>mes}
     else
       current_account.books << book
+      logger.info "#{current_account.name} register a book '#{book.title}'"
       res = {:status=>"success", :message=>"登録完了!"}
     end
 
@@ -48,6 +49,7 @@ MyBookList.controllers :book, :parent=>:account do
     books = current_account.books.where(:asin=>params[:asin])
     if books.present? then
       current_account.books.delete books
+      logger.info "#{current_account.name} delete a book '#{books.map(&:title).join(";")}'"
       res = {:status=>"success", :message=>"削除完了!"}
     else
       status 400
