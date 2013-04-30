@@ -3,7 +3,7 @@
 </div>
 
 <div class="container">
-  <%= rating_box_tag(:account=>current_account, :ratable=>@account) %>
+  <%= rating_box_tag(:account=>current_account, :ratable=>@account) if @account.id != current_account.id %>
 </div>
 
 <div class="container">

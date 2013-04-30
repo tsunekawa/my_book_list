@@ -31,7 +31,7 @@ $('.rating').raty({
         success: function (data, dataType){
           rating_elem.attr('id',"rating_"+data["id"]);
           rating_elem
-            .parent
+            .parent()
             .removeClass("alert-info")
             .removeClass("alert-error")
             .addClass("alert-success");
@@ -41,7 +41,7 @@ $('.rating').raty({
         },
         error: function (XMLHttpRequest, textStatus, errorThrown){
           rating_elem
-            .siblings(".alert")
+            .parent()
             .removeClass("alert-info")
             .removeClass("alert-success")
             .addClass("alert-error");
@@ -66,7 +66,9 @@ $('.rating').raty({
             .removeClass("alert-info")
             .removeClass("alert-error")
             .addClass("alert-success");
-          rating_elem.siblings(".massage").text("登録成功");
+          rating_elem
+            .siblings(".message")
+            .text("更新成功");
         },
         error: function (XMLHttpRequest, textStatus, errorThrown){
           rating_elem

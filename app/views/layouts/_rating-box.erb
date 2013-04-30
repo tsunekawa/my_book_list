@@ -1,6 +1,12 @@
   <div class='rating-box'>
     <p class="alert alert-info">
-      <strong class="message"><%= account.name %>さんのリストに対するあなたの関心を教えて下さい。</strong>
+      <strong class="message">
+        <% if rating.id.blank? then %>
+        <%= rating.ratable.name %>さんのリストに対するあなたの関心を教えて下さい。
+        <% else %>
+        <%= rating.ratable.name %>さんのリストへの評価はすでに登録済みです。
+        <% end  %>
+      </strong>
       <span class='rating' id='rating_<%= rating.id %>' ratable-type='<%= rating.ratable_type %>' ratable-id='<%= rating.ratable_id %>' data-score='<%= rating.rate %>' ></span>
     </p>
   </div>
