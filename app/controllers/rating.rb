@@ -1,8 +1,8 @@
 MyBookList.controllers :rating, :parent=>:account do
 
   get :index do
-    logger.debug current_account
-    @ratings = current_account.ratings
+    @account = Account.find(params[:account_id])
+    @ratings = @account.ratings
     render 'rating/index'
   end
 
