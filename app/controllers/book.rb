@@ -21,12 +21,8 @@ MyBookList.controllers :book, :parent=>:account do
       @panel_is_visible = true
     end
 
-    if permit_access? then
-      @books = @account.books
-      render 'book/index'
-    else
-      halt 403
-    end
+    @books = @account.books
+    render 'book/index'
   end
 
   post :index, :provides => :json do
