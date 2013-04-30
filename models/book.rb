@@ -13,6 +13,24 @@ class Book < AmazonItem
     end
   end
 
+  def self.cache_all
+    n = 0 
+    find_each do |b|
+      next if b.cached?
+      begin
+        title = b.title
+      rescue
+        logger.info "fail: asin:#{b.asin}"
+        sleep 3
+        next
+      end
+      n+=1
+      logger.info "[#{n}] cached: #{title}"
+      sleep 0.5
+    end
+    logger.info "complete! cached #{n} books!"
+  end
+
   def small_image
     if @small_image.blank? then
        _small_image = get_hash('SmallImage')

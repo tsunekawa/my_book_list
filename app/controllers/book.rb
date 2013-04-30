@@ -1,28 +1,11 @@
 #-*- coding:utf-8 -*-
 
 MyBookList.controllers :book, :parent=>:account do
-  # get :index, :map => "/foo/bar" do
-  #   session[:foo] = "bar"
-  #   render 'index'
-  # end
-
-  # get :sample, :map => "/sample/url", :provides => [:any, :js] do
-  #   case content_type
-  #     when :js then ...
-  #     else ...
-  # end
-
-  # get :foo, :with => :id do
-  #   "Maps to url '/foo/#{params[:id]}'"
-  # end
-
-  # get "/example" do
-  #   "Hello world!"
-  # end
 
   get :search, :map => "/book/search" do
     @title = "本の検索"
     @results = Array.new
+    @panel_is_visible = true
 
     if params[:q].present? then
       results = Book.search(params[:q], :page=>params[:page])
@@ -34,12 +17,12 @@ MyBookList.controllers :book, :parent=>:account do
 
   get :index do
     @account = Account.find(params[:account_id])
-    if permit_access? then
-      @books = @account.books
-      render 'book/index'
-    else
-      halt 403
+    if @account.id == current_account.id then
+      @panel_is_visible = true
     end
+
+    @books = @account.books
+    render 'book/index'
   end
 
   post :index, :provides => :json do
@@ -50,6 +33,7 @@ MyBookList.controllers :book, :parent=>:account do
       res = {:status=>"error", :message=>mes}
     else
       current_account.books << book
+      logger.info "#{current_account.name} register a book '#{book.title}'"
       res = {:status=>"success", :message=>"登録完了!"}
     end
 
@@ -62,9 +46,10 @@ MyBookList.controllers :book, :parent=>:account do
   end
 
   delete :index, :provides => :json do
-    book = Book.find_by_asin params[:asin]
-    if book.present? then
-      current_account.books.delete book
+    books = current_account.books.where(:asin=>params[:asin])
+    if books.present? then
+      current_account.books.delete books
+      logger.info "#{current_account.name} delete a book '#{books.map(&:title).join(";")}'"
       res = {:status=>"success", :message=>"削除完了!"}
     else
       status 400

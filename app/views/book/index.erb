@@ -3,5 +3,11 @@
 </div>
 
 <div class="container">
+  <%= rating_box_tag(:account=>current_account, :ratable=>@account) if @account.id != current_account.id %>
+</div>
+
+<div class="container">
   <%= partial 'layouts/book_list', :locals=>{:books=>@books} %>
 </div>
+
+<%= javascript_include_tag url(:rating, :config, :format=>:js, :account_id=>current_account.id) %>

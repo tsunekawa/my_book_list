@@ -15,8 +15,10 @@
     <div class="span9">
       <h2><%= link_to ac.name, url_for(:account, :show, :account_id=>ac.id) %></h2>
       <p>登録冊数:<%= ac.books.size %>冊</p>
+      <%= rating_box_tag(:account=>current_account, :ratable=>ac) if ac.id != current_account.id %>
     </div>
   </div>
 <% end %>
 </div>
 
+<%= javascript_include_tag url(:rating, :config, :format=>:js, :account_id=>current_account.id) %>

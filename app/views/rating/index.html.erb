@@ -1,0 +1,15 @@
+<div class="container">
+<% @ratings.each do |rating| %>
+  <div class="well row">
+  <h2>
+  <% case rating.ratable_type.to_sym %>
+  <% when :Account %>
+  <%= rating.ratable.name %>
+  <% end %>
+  <%= rating_tag(rating) -%>
+  </h2>
+  </div>
+<% end %>
+</div>
+
+<%= javascript_include_tag url(:rating, :config, :format=>:js, :account_id=>current_account.id) %>

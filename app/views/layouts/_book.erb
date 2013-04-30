@@ -14,24 +14,6 @@
       <li>出版社: <%= book.publisher %></li>
       <li>ISBN: <%= book.isbn %></li>
     </ul>
-
-	<% if logged_in? then %>
-	<div class="book-control-panel">
-	  <% if current_account.books.find_by_asin(book.asin).blank? then %>
-	    <% form_tag(url_for(:book,:index,:account_id=>current_account.id, :format=>:json), :method=>'POST', :class=>'book-register-form') do %>
-	      <p class="alert"></p>
-	      <%= hidden_field_tag :asin, :value=>book.asin %>
-	      <%= submit_tag '登録', :class=>"btn btn-primary" %>
-	    <% end %>
-	  <% else %>
-	    <% form_tag(url_for(:book,:index,:account_id=>current_account.id), :method=>'delete', :class=>'book-deleter-form') do %>
-	      <%= hidden_field_tag :asin, :value=>book.asin %>
-	      <p class="alert">既に登録済みです。</p>
-	      <%= submit_tag '登録解除', :class=>"btn btn-danger" %>
-	    <% end %>
-	  <% end %>
-	</div>
-        <% end %>
-
-      </div>
+    <%= partial 'layouts/book_panel', :locals=>{:book=>book} if defined?(@panel_is_visible) and @panel_is_visible %>
+  </div>
 </div>

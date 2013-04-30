@@ -19,7 +19,6 @@ MyBookList.controllers :account do
   # end
 
   get :index, :map => "/account/" do
-    halt 403 unless current_account.role.to_sym==:admin
     @accounts = Account.all
     render 'account/index'
   end
