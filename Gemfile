@@ -28,5 +28,8 @@ gem 'padrino-sprockets', :require => "padrino/sprockets"
 gem 'amazon-ecs'
 gem 'dalli'
 
+# Cron Job
+gem 'whenever', :require => false
+
 # debug
 gem 'pry'
