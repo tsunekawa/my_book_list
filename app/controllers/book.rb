@@ -1,28 +1,11 @@
 #-*- coding:utf-8 -*-
 
 MyBookList.controllers :book, :parent=>:account do
-  # get :index, :map => "/foo/bar" do
-  #   session[:foo] = "bar"
-  #   render 'index'
-  # end
-
-  # get :sample, :map => "/sample/url", :provides => [:any, :js] do
-  #   case content_type
-  #     when :js then ...
-  #     else ...
-  # end
-
-  # get :foo, :with => :id do
-  #   "Maps to url '/foo/#{params[:id]}'"
-  # end
-
-  # get "/example" do
-  #   "Hello world!"
-  # end
 
   get :search, :map => "/book/search" do
     @title = "本の検索"
     @results = Array.new
+    @panel_is_visible = true
 
     if params[:q].present? then
       results = Book.search(params[:q], :page=>params[:page])
@@ -34,6 +17,10 @@ MyBookList.controllers :book, :parent=>:account do
 
   get :index do
     @account = Account.find(params[:account_id])
+    if @account.id == current_account.id then
+      @panel_is_visible = true
+    end
+
     if permit_access? then
       @books = @account.books
       render 'book/index'

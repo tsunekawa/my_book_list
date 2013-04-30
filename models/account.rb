@@ -19,6 +19,9 @@ class Account < ActiveRecord::Base
   has_many :amazon_items, :through=>:having_books
   has_many :books, :through=>:having_books, :foreign_key=>:amazon_item_id
 
+  has_many :rateds,  :class_name=>"Rating", :as=>:ratable
+  has_many :ratings, :class_name=>"Rating", :foreign_key=>:account_id
+
   ##
   # This method is for authentication purpose
   #
@@ -33,6 +36,17 @@ class Account < ActiveRecord::Base
 
   def is_admin?
     role.to_sym == :admin
+  end
+
+  def rating_of(ratable)
+    params = {
+      :account_id   => self.id,
+      :ratable_id   => ratable.id,
+      :ratable_type => ratable.class.name
+    }
+    rating = Rating.where(params).first
+    rating = Rating.new(params) if rating.blank?
+    rating
   end
 
   private
