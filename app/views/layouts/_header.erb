@@ -5,6 +5,7 @@
       <div class="nav-collapse collapse">
 	<ul class="nav">
 	  <li><%= link_to 'トップ', url_for(:top, :top) %></li>
+          <li><%= link_to 'アカウント一覽', url_for(:account, :index) %></li>
 	  <li><%= link_to '本の検索', url_for(:book,:search) -%></li>
 	  <% if logged_in? then %>
 	    <li><%= link_to '登録した本', url_for(:book, :index, :account_id=>current_account.id) -%></li>
