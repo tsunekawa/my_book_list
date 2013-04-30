@@ -49,9 +49,9 @@ MyBookList.controllers :book, :parent=>:account do
   end
 
   delete :index, :provides => :json do
-    book = Book.find_by_asin params[:asin]
-    if book.present? then
-      current_account.books.delete book
+    books = current_account.books.where(:asin=>params[:asin])
+    if books.present? then
+      current_account.books.delete books
       res = {:status=>"success", :message=>"削除完了!"}
     else
       status 400
