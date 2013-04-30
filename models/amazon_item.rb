@@ -17,6 +17,10 @@ class AmazonItem < ActiveRecord::Base
     @item.get_hash(path)
   end
 
+  def cached?
+    @looked or @@cache.get(asin).present?
+  end
+
   protected
 
   def validate
