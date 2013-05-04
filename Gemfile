@@ -32,8 +32,8 @@ gem 'dalli'
 # Cron Job
 gem 'whenever', :require => false
 
-# NDL Search
-gem 'ndl_search', :git => "https://github.com/tsunekawa/ndl_search", :branch => "develop"
+# for NDLSearch
+gem "rest-client"
 
 # debug
 gem 'pry'
