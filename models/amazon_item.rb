@@ -38,7 +38,7 @@ class AmazonItem < ActiveRecord::Base
     end
 
     if @item.nil? then
-      raise IOError,"ItemLookup is fault : ASIN #{@item.asin}"
+      raise IOError,"ItemLookup is fault : ASIN #{@item.try(:asin)}"
     end
 
     @looked = true
