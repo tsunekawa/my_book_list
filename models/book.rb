@@ -68,6 +68,6 @@ class Book < AmazonItem
   end
 
   def ndc
-    @ndc ||= NdlItem.lookup(isbn).ndc
+    @ndc ||= isbn.present? ? NdlItem.lookup(isbn).ndc : nil
   end
 end
