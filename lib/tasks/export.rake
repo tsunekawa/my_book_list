@@ -9,7 +9,8 @@ namespace :export do
       account.books.each do |book|
         ary << {
           :book_isbn    => book.isbn,
-          :book_title   => book.title
+          :book_title   => book.title,
+          :book_ndc     => book.ndc
         }
       end
       dataset[account.name.to_sym] = ary
