@@ -21,6 +21,9 @@ config/application.yml
 _yardoc
 doc/
 db/*.yml
+db/*.back
+db/*.sql
 db/pages/*.md
 vendor/*
 log/*.log
+db/dump/*
