@@ -26,4 +26,4 @@ db/*.sql
 db/pages/*.md
 vendor/*
 log/*.log
-
+db/dump/*
